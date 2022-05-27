@@ -1,4 +1,11 @@
 # Adding files to be ignored below
+./   .classpath  .settings/  bin/
+../  .git/       .project       
+
+
+
+
+
 .classpath 
 .project 
 .settings/
