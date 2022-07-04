@@ -1,5 +1,7 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
+
 public class CompanyEmployeeWage {
 
 	static final int EMP_FULL_TIME = 1;
@@ -11,6 +13,7 @@ public class CompanyEmployeeWage {
 	public int totalWorkHrs;
 	public int totalWage;
 
+	
 	public CompanyEmployeeWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
 		this.company = company;
 		this.wagePerHour = wagePerHour;
