@@ -19,16 +19,26 @@ public class EmployeeWage implements IEmployeeWage {
 				totalWorkHrs);
 		companyEmployeeWageArrayList.add(companyEmployeeWage);
 	}
+//UC-14	
+	@Override
+	public void getTotalWage() {
+		for (int i = 0; i < companyEmployeeWageArrayList.size(); i++) {
+			System.out.println("Total wage of "+companyEmployeeWageArrayList.get(i).company+" company is :"+companyEmployeeWageArrayList.get(i).totalWage);
+		}
+		
+	}
 
 	public void calculateEmpWage() {
 		for (int i = 0; i < companyEmployeeWageArrayList.size(); i++) {
 			CompanyEmployeeWage companyEmployeeWage = companyEmployeeWageArrayList.get(i);
 			companyEmployeeWage.setTotalEmpWage(this.calculateEmpWage(companyEmployeeWage));
+			
 			System.out.println("Company Name :" + companyEmployeeWage.company);
 			System.out.println(companyEmployeeWage.company + " Total Wage is " + companyEmployeeWage.totalWage);
 			System.out.println("-----------------------------------------------------------------------------");
 		}
 	}
+	
 	public int calculateEmpWage(CompanyEmployeeWage companyEmployeeWage) {
 
 		int empWage = 0;
@@ -80,11 +90,15 @@ public class EmployeeWage implements IEmployeeWage {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Employee Wage calculation");
 		EmployeeWage empWage = new EmployeeWage();
-		empWage.addCompanyEmpWage("BIG BASKET", 20, 10, 50);
-		empWage.addCompanyEmpWage("AMAZON", 90, 21, 222);
-		empWage.addCompanyEmpWage("TARGET", 58, 22, 175);
+		empWage.addCompanyEmpWage("HERO HONDA", 20, 10, 50);
+		empWage.addCompanyEmpWage("TATA", 90, 21, 222);
+		empWage.addCompanyEmpWage("RED BUS", 58, 22, 175);
 		empWage.calculateEmpWage();
+		empWage.getTotalWage();
 
 	}
 
+	
+
+	
 }
