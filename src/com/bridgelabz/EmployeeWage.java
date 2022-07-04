@@ -6,26 +6,33 @@ public class EmployeeWage {
 	static final int EMP_FULL_TIME = 1;
 	static final int EMP_PART_TIME = 2;
 
-	public String company;
-	public int wagePerHour;
-	public int workingDay;
-	public int totalWorkHrs;
+	private int numOfCompany = 0;
+	private CompanyEmployeeWage[] empWageArray;
 
-	public EmployeeWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
-		this.company = company;
-		this.wagePerHour = wagePerHour;
-		this.workingDay = workingDay;
-		this.totalWorkHrs = totalWorkHrs;
+	public EmployeeWage() {
+		empWageArray = new CompanyEmployeeWage[5];
 	}
 
-	public void calculateEmpWage() {
+	private void addCompanyEmpWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
+
+		empWageArray[numOfCompany] = new CompanyEmployeeWage(company, wagePerHour, workingDay, totalWorkHrs);
+		numOfCompany++;
+	}
+
+	private void calculateEmpWage() {
+		for (int i = 0; i < numOfCompany; i++) {
+			empWageArray[i].setTotalEmpWage(this.calculateEmpWage(empWageArray[i]));
+			System.out.println(empWageArray[i]);
+		}
+	}
+
+	public int calculateEmpWage(CompanyEmployeeWage companyEmployeeWage) {
 
 		int empWage = 0;
-		int totalWage = 0;
 		int totalWorkingHours = 0;
 		int totalWorkingDays = 0;
 
-		while (totalWorkingDays < workingDay && totalWorkingHours < totalWorkHrs) {
+		while (totalWorkingDays < companyEmployeeWage.workingDay && totalWorkingHours < companyEmployeeWage.totalWorkHrs) {
 
 			Random random = new Random();
 			int empPresent = random.nextInt(3);
@@ -36,7 +43,7 @@ public class EmployeeWage {
 
 			case EMP_FULL_TIME:
 
-				x = wagePerHour * 8;
+				x = companyEmployeeWage.wagePerHour * 8;
 				empWage = empWage + x;
 				totalWorkingHours = totalWorkingHours + 8;
 				System.out.println("Employee is present and the wage is : " + empWage);
@@ -44,7 +51,7 @@ public class EmployeeWage {
 				break;
 
 			case EMP_PART_TIME:
-				x = wagePerHour * 4;
+				x = companyEmployeeWage.wagePerHour * 4;
 				empWage = empWage + x;
 				totalWorkingHours = totalWorkingHours + 4;
 				System.out.println("Employee is Part time present and the wage is : " + empWage);
@@ -60,31 +67,23 @@ public class EmployeeWage {
 		}
 
 		System.out.println("Total Working Days :" + totalWorkingDays);
-		System.out.println("Total Working Hours :" + totalWorkHrs);
-		System.out.println("Total Employee Wage for company " + company + " is :" + empWage);
+		System.out.println("Total Working Hours :" + companyEmployeeWage.totalWorkHrs);
+		System.out.println("Total Employee Wage for company " + companyEmployeeWage.company + " is :" + empWage);
+		System.out.println("---------------------------------------");
+		return empWage;
+		
 	}
 
-	@Override
-	public String toString() {
-		return "EmployeeWage [company=" + company + ", wagePerHour=" + wagePerHour + ", workingDay=" + workingDay
-				+ ", totalWorkHrs=" + totalWorkHrs + "]";
-	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Employee Wage calculation");
-		EmployeeWage bigBasket = new EmployeeWage("BIG BASKET", 40, 22, 140);
-		EmployeeWage amazon = new EmployeeWage("AMAZON", 90, 21, 222);
-		EmployeeWage target = new EmployeeWage("TARGET", 58, 22, 175);
-
-		bigBasket.calculateEmpWage();
-		System.out.println(bigBasket);
-		System.out.println("------------------------------------------------------------------");
-		amazon.calculateEmpWage();
-		System.out.println(amazon);
-		System.out.println("------------------------------------------------------------------");
-		target.calculateEmpWage();
-		System.out.println(target);
-		System.out.println("------------------------------------------------------------------");
+		System.out.println("---------------------------------------");
+		EmployeeWage empWage = new EmployeeWage();
+		empWage.addCompanyEmpWage("BIG BASKET", 40, 22, 140);
+		empWage.addCompanyEmpWage("AMAZON", 90, 21, 222);
+		empWage.addCompanyEmpWage("TARGET", 58, 22, 175);
+		empWage.calculateEmpWage();
+		System.out.println("---------------------------------------");
 	}
 
 }
