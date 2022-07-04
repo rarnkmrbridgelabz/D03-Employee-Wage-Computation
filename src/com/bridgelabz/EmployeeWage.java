@@ -2,7 +2,7 @@ package com.bridgelabz;
 
 import java.util.Random;
 
-public class EmployeeWage {
+public class EmployeeWage implements IEmployeeWage {
 	static final int EMP_FULL_TIME = 1;
 	static final int EMP_PART_TIME = 2;
 
@@ -13,13 +13,13 @@ public class EmployeeWage {
 		empWageArray = new CompanyEmployeeWage[5];
 	}
 
-	private void addCompanyEmpWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
+	public void addCompanyEmpWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
 
 		empWageArray[numOfCompany] = new CompanyEmployeeWage(company, wagePerHour, workingDay, totalWorkHrs);
 		numOfCompany++;
 	}
 
-	private void calculateEmpWage() {
+	public void calculateEmpWage() {
 		for (int i = 0; i < numOfCompany; i++) {
 			empWageArray[i].setTotalEmpWage(this.calculateEmpWage(empWageArray[i]));
 			System.out.println(empWageArray[i]);
@@ -32,7 +32,8 @@ public class EmployeeWage {
 		int totalWorkingHours = 0;
 		int totalWorkingDays = 0;
 
-		while (totalWorkingDays < companyEmployeeWage.workingDay && totalWorkingHours < companyEmployeeWage.totalWorkHrs) {
+		while (totalWorkingDays < companyEmployeeWage.workingDay
+				&& totalWorkingHours < companyEmployeeWage.totalWorkHrs) {
 
 			Random random = new Random();
 			int empPresent = random.nextInt(3);
@@ -69,21 +70,19 @@ public class EmployeeWage {
 		System.out.println("Total Working Days :" + totalWorkingDays);
 		System.out.println("Total Working Hours :" + companyEmployeeWage.totalWorkHrs);
 		System.out.println("Total Employee Wage for company " + companyEmployeeWage.company + " is :" + empWage);
-		System.out.println("---------------------------------------");
-		return empWage;
-		
-	}
 
+		return empWage;
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Employee Wage calculation");
-		System.out.println("---------------------------------------");
+		System.out.println("------------------------------------");
 		EmployeeWage empWage = new EmployeeWage();
 		empWage.addCompanyEmpWage("BIG BASKET", 40, 22, 140);
 		empWage.addCompanyEmpWage("AMAZON", 90, 21, 222);
 		empWage.addCompanyEmpWage("TARGET", 58, 22, 175);
 		empWage.calculateEmpWage();
-		System.out.println("---------------------------------------");
+
 	}
 
 }
