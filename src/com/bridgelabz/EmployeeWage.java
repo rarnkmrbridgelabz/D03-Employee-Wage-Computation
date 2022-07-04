@@ -3,47 +3,63 @@ package com.bridgelabz;
 import java.util.Random;
 
 public class EmployeeWage {
-	 public static void usingMethod(){//Using Method
-			System.out.println("Welcome to Employee Wage Computation");
+	static final int FULL_TIME_HOUR = 8;
+	static final int PART_TIME_HOUR = 4;
+	static final int EMP_FULL_TIME = 1;
+	static final int EMP_PART_TIME = 2;
+
+	public void calculateEmployeeWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
+
+		int empWage = 0;
+		int totalWorkingHours = 0;
+		int totalWorkingDays = 0;
+
+		while (totalWorkingDays < workingDay && totalWorkingHours < totalWorkHrs) {
 
 			Random random = new Random();
+			int empPresent = random.nextInt(3);
+			System.out.println("Random Value for Employee Attendance is :" + empPresent);
 
-			int wagePerHour = 20;
-			int fullDayHours = 8;
-			int partTimeHours = 4;
-			int wagePerDay = 0;
-			int monthlySalary = 0;
-			int monthlyHours = 0;
-			int days = 0;
+			int x;
+			switch (empPresent) {
+			case EMP_FULL_TIME:
+				x = wagePerHour * FULL_TIME_HOUR;
+				empWage = empWage + x;
+				totalWorkingHours = totalWorkingHours + FULL_TIME_HOUR;
+				System.out.println("Employee is present and the wage is : " + empWage);
+				totalWorkingDays++;
+				break;
 
-			while (monthlyHours <= 100 && days <= 20) {
-				int attendance = random.nextInt(3);
-				wagePerDay = 0;
-				switch (attendance) {
-				case 0:
-					System.out.println("Employee is Absent...");
-					break;
+			case EMP_PART_TIME:
+				x = wagePerHour * PART_TIME_HOUR;
+				empWage = empWage + x;
+				totalWorkingHours = totalWorkingHours + PART_TIME_HOUR;
+				System.out.println("Employee is Part time present and the wage is : " + empWage);
+				totalWorkingDays++;
+				break;
 
-				case 1:
-					System.out.println("Employee is Present Part Time...");
-					wagePerDay = wagePerHour * partTimeHours;
-					monthlyHours = monthlyHours + partTimeHours;
-					break;
+			default:
+				System.out.println("Employee is absent and the wage is : " + empWage);
+				break;
 
-				default:
-					System.out.println("Employee is Present Full Time...");
-					wagePerDay = wagePerHour * fullDayHours;
-					monthlyHours = monthlyHours + fullDayHours;
-
-				}
-				monthlySalary = monthlySalary + wagePerDay;
-				System.out.println("Day:" + days + " Monthly Hours:" + monthlyHours + " Monthly Salary : " + monthlySalary);
-				days++;
 			}
+		}
+
+		System.out.println(" ");
+		System.out.println("Total Working Days :" + totalWorkingDays);
+		System.out.println("Total Working Hours :" + totalWorkHrs);
+		System.out.println("Total wage of employee for the month is : " + empWage);
 	}
 
 	public static void main(String[] args) {
-		usingMethod();//Calling the above Method 
+		System.out.println("Welcome to Employee Wage Program with multiple UseCases");
+		EmployeeWage emp = new EmployeeWage();
+		emp.calculateEmployeeWage("Company1", 10, 15, 90);
+		System.out.println("--------------------------------------------");
+		emp.calculateEmployeeWage("Company2", 20, 20, 100);
+		System.out.println("--------------------------------------------");
+		emp.calculateEmployeeWage("Company3", 30, 25, 110);
+		System.out.println("--------------------------------------------");
 	}
 
 }
