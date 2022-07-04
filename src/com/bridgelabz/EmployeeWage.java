@@ -3,14 +3,25 @@ package com.bridgelabz;
 import java.util.Random;
 
 public class EmployeeWage {
-	static final int FULL_TIME_HOUR = 8;
-	static final int PART_TIME_HOUR = 4;
 	static final int EMP_FULL_TIME = 1;
 	static final int EMP_PART_TIME = 2;
 
-	public void calculateEmployeeWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
+	public String company;
+	public int wagePerHour;
+	public int workingDay;
+	public int totalWorkHrs;
+
+	public EmployeeWage(String company, int wagePerHour, int workingDay, int totalWorkHrs) {
+		this.company = company;
+		this.wagePerHour = wagePerHour;
+		this.workingDay = workingDay;
+		this.totalWorkHrs = totalWorkHrs;
+	}
+
+	public void calculateEmpWage() {
 
 		int empWage = 0;
+		int totalWage = 0;
 		int totalWorkingHours = 0;
 		int totalWorkingDays = 0;
 
@@ -22,18 +33,20 @@ public class EmployeeWage {
 
 			int x;
 			switch (empPresent) {
+
 			case EMP_FULL_TIME:
-				x = wagePerHour * FULL_TIME_HOUR;
+
+				x = wagePerHour * 8;
 				empWage = empWage + x;
-				totalWorkingHours = totalWorkingHours + FULL_TIME_HOUR;
+				totalWorkingHours = totalWorkingHours + 8;
 				System.out.println("Employee is present and the wage is : " + empWage);
 				totalWorkingDays++;
 				break;
 
 			case EMP_PART_TIME:
-				x = wagePerHour * PART_TIME_HOUR;
+				x = wagePerHour * 4;
 				empWage = empWage + x;
-				totalWorkingHours = totalWorkingHours + PART_TIME_HOUR;
+				totalWorkingHours = totalWorkingHours + 4;
 				System.out.println("Employee is Part time present and the wage is : " + empWage);
 				totalWorkingDays++;
 				break;
@@ -43,23 +56,35 @@ public class EmployeeWage {
 				break;
 
 			}
+
 		}
 
-		System.out.println(" ");
 		System.out.println("Total Working Days :" + totalWorkingDays);
 		System.out.println("Total Working Hours :" + totalWorkHrs);
-		System.out.println("Total wage of employee for the month is : " + empWage);
+		System.out.println("Total Employee Wage for company " + company + " is :" + empWage);
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeWage [company=" + company + ", wagePerHour=" + wagePerHour + ", workingDay=" + workingDay
+				+ ", totalWorkHrs=" + totalWorkHrs + "]";
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Employee Wage Program with multiple UseCases");
-		EmployeeWage emp = new EmployeeWage();
-		emp.calculateEmployeeWage("Company1", 10, 15, 90);
-		System.out.println("--------------------------------------------");
-		emp.calculateEmployeeWage("Company2", 20, 20, 100);
-		System.out.println("--------------------------------------------");
-		emp.calculateEmployeeWage("Company3", 30, 25, 110);
-		System.out.println("--------------------------------------------");
+		System.out.println("Welcome to Employee Wage calculation");
+		EmployeeWage bigBasket = new EmployeeWage("BIG BASKET", 40, 22, 140);
+		EmployeeWage amazon = new EmployeeWage("AMAZON", 90, 21, 222);
+		EmployeeWage target = new EmployeeWage("TARGET", 58, 22, 175);
+
+		bigBasket.calculateEmpWage();
+		System.out.println(bigBasket);
+		System.out.println("------------------------------------------------------------------");
+		amazon.calculateEmpWage();
+		System.out.println(amazon);
+		System.out.println("------------------------------------------------------------------");
+		target.calculateEmpWage();
+		System.out.println(target);
+		System.out.println("------------------------------------------------------------------");
 	}
 
 }
